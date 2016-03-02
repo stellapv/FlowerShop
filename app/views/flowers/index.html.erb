@@ -1,0 +1,43 @@
+<div class="row" style="padding-top: 50px;">
+  <div id="breadcrumb">
+    <ul class="breadcrumb container">
+      <li><%= link_to  "", root_path, class: "glyphicon glyphicon-home" %></li>
+      <li><%= current_type.name %></li>
+    </ul>
+  </div>
+  
+<%= paginate @flowers %>
+
+  <% @flowers.each do |flower| %>
+    <div class=" col-md-4">  
+      <div class="thumbnail">
+      	<div class="image-thumb">
+  	      	<%= link_to image_tag(flower.flower_photo.url), type_flower_path(id: flower.id) %>
+      	</div>
+
+        <div class="caption" style="min-height: 400px;">
+          <h3 class="flower-title"><%= flower.name %></h3>
+          <article class="flower-article"><%= flower.description %></article>
+
+          <%= link_to "Take a look", type_flower_path(id: flower.id), class: "btn btn-primary", role: "button" %>
+
+          <% if flower.quantity > 0 %>
+            <%= form_for @order_item do |f| %>
+            <h4 class="text-right">Unit Price: <span style="color: green">
+              <%= number_to_currency(flower.price, unit:'€') %></span>
+            </h4>
+            <div class="input-group">
+              <%= f.number_field :quantity, value: 1, class: "form-control", min: 1, max: flower.quantity %>
+              <div class="input-group-btn">
+                <%= f.hidden_field :flower_id, value: flower.id %>
+                <%= f.submit "Add to Cart", class: "btn btn-success" %>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>

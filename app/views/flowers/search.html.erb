@@ -1,0 +1,53 @@
+<div class="container" style="padding-top: 50px;">
+  <div class="wrap-container">   
+    <div class="row">
+      <div id="breadcrumb">
+        <ul class="breadcrumb container">
+          <li><%= link_to  "", root_path, class: "glyphicon glyphicon-home" %></li>
+          <li><span>Search</span></li>
+        </ul>
+      </div>
+    <section id="sidebar-main" class="col-md-12">
+      <div id="content">
+        <div class="product-info">
+          <h1>Search results</h1>
+          <div class="checkout wrapper no-margin">
+          
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <td class="text-center">Image</td>
+                  <td class="text-left">Product Name</td>
+                  <td class="text-left">Description</td>
+                </tr>
+              </thead>
+              <tbody>
+
+              <% @search_flowers.each do |flower|%>
+                <tr>
+                  <td class="text-center">
+                    <% if current_user && current_user.admin? %>
+                      <%= image_tag(flower.flower_photo) %>
+                    <% else %>
+                      <%= link_to image_tag(flower.flower_photo.url), type_flower_path(id: flower.id, type_id: flower.types.first.id), class: "style_image" %>
+                    <% end %>
+                  </td>
+                  <td class="text-left">
+                    <%= flower.name.html_safe %>
+                  </td>
+                  <td class="text-left">
+                    <%= flower.description.html_safe %>
+                  </td>
+                </tr>
+              <% end %>
+                
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+</div>

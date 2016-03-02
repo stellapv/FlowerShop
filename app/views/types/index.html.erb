@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="wrap-container">
+    <div class="row">
+      <div id="breadcrumb">
+        <ul class="breadcrumb container">
+          <li><%= link_to  "", root_path, class: "glyphicon glyphicon-home" %></li>
+          <li><span>Types</span></li>
+        </ul>
+      </div>
+
+      <section id="sidebar" class="col-md-12">
+        <div id="content">
+          <div class="product-info">
+            <h1>Types</h1>
+            <div class="checkout wrapper no-margin">
+
+              <table class="table table-responsive">
+
+                <thead>
+                  <tr>
+                    <td class="text-center">Name</td>
+                    <td class="text-left">Dropdown</td>
+                    <td class="text-left">Last Edit</td>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                <% all_types.each do |t|%>
+
+                  <tr>
+                    <td class="text-center"><%= t.name %></td>
+                    <td class="text-left"><%= t.dropdown %></td>
+                    <td class="text-left"><%= t.updated_at %></td>
+                    <td class="text-left"><%= link_to "Edit Type", edit_type_path(id: t.id), class: "btn btn-default" %></td>
+                    <td class="text-left"><%= button_to "Delete Type", type_path(id: t.id), method: :delete, class: "btn btn-danger"%></td>
+                  </tr>
+
+                <% end %>
+
+                </tbody>
+
+              </table>
+              <%= button_to 'Add A New Type', new_type_path, method: :get, class: "btn btn-success" %>
+            </div>
+          </div> 
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<%= image_tag "logo1.jpg" %>
+<form action="<%= orders_pay_path %>" method="post">
+  <div class="control-group">
+  <p>Firstname: <input type="text" :Firstname, class: 'control-label' ></p>
+  <p>Lastname: <input type="text" :Firstname, class: 'control-label' ></p>
+  <p>Card Number: <input type="text" :Firstname, class: 'control-label' ></p>
+  <p>CVC Code: <input type="text" :Firstname, class: 'control-label' ></p>
+  <p>Expiration date: <input type="date", class: 'control-label' ></p>
+  </div>
+  <p></p>
+  <%= button_to "Pay", class: "btn btn-success" %>
+</form>

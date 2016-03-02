@@ -1,0 +1,23 @@
+<div class="container">
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#orders">Orders</a></li>
+    <li><a data-toggle="tab" href="#flowers">Flowers</a></li>
+    <li><a data-toggle="tab" href="#users">Users</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="orders" class="tab-pane fade in active">
+      <%= pie_chart @o_by_state, {library: {title: "Orders by state", backgroundColor: "#eee"}} %>
+      <%= line_chart @o_by_total, {discrete: true, xtitle: "Total in €", ytitle: "Count", library: {title: "Orders by total", backgroundColor: "#eee"}} %>
+      <%= line_chart @o_by_create, {xtitle: "Month", ytitle: "Count", library: {title: "Orders by day of creation", backgroundColor: "#eee"}} %>
+    </div>
+    <div id="flowers" class="tab-pane fade in active">
+      <%= pie_chart @f_by_types, {stacked: true, library: {title: "Flowers by appurtenance to Occasion, Plant, Flower", backgroundColor: "#eee"}} %>
+      <%= column_chart @f_by_price, {discrete: true, xtitle: "Price in €", ytitle: "Count", library: {title: "Flowers by price", backgroundColor: "#eee"}} %>
+    </div>
+    <div id="users" class="tab-pane fade in active">
+      <%= line_chart @u_by_create, {library: {title: "Number of users by day of registration", backgroundColor: "#eee"}} %>
+    </div>
+  </div>
+</div>

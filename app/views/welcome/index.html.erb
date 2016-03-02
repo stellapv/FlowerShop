@@ -1,0 +1,40 @@
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin: 13%;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox" style="border-radius: 20px;">
+    <div class="item active">
+    <%= link_to image_tag('layer-slider-1.jpg'), type_flowers_path(type_id: 5) %>
+      <div class="carousel-caption">
+        <p style="font-style: oblique; color: indianred; font-size: large;">You want to gift love ... </p>
+      </div>
+    </div>
+    <div class="item">
+    <%= link_to image_tag('layer-slider-2.jpg'), type_flowers_path(type_id: 11) %>
+      <div class="carousel-caption">
+        <p style="font-style: oblique; color: darkmagenta; font-size: large;">You want somethng simple but touching...</p>
+      </div>
+    </div>
+    <div class="item">
+    <%= link_to image_tag('layer-slider-3.jpg'), type_flowers_path(type_id: 18) %>
+      <div class="carousel-caption">
+        <p style="font-style: oblique; color: wheat; font-size: large; text-align: start;">We combine</p><p style="font-style: oblique; color: wheat; font-size: large; text-align: left;"> all the beauty together...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

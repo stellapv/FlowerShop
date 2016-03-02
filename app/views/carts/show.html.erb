@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="wrap-container">
+    <div class="row">
+      <div id="breadcrumb">
+        <ul class="breadcrumb container">
+          <li><%= link_to  "", root_path, class: "glyphicon glyphicon-home" %></li>
+          <li><span>Shopping Cart</span></li>
+        </ul>
+      </div>
+    <section id="sidebar-main" class="col-md-9">
+      <div id="content">
+        <div class="product-info">
+          <h1>Shopping Cart</h1>
+          <div class="checkout wrapper no-margin">
+
+          <% if current_order.id? && !current_order.order_items.empty? %>
+
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <td class="text-center" width="35%">Image</td>
+                <td class="text-left" width="20%">Product Name</td>
+                <td class="text-right" width="10%">Unit Price</td>
+                <td class="text-right" width="5%">Quantity</td>
+                <td class="text-right" width="10%">Sutotal</td>
+                <td class="text-right" width="10%">Action</td>
+              </tr>
+            </thead>
+            <tbody>
+
+            <% current_order.order_items.each do |oi| %>
+              <tr>
+                <td class="text-center">
+                <%= image_tag oi.flower.flower_photo(:medium), class: "style_image" %>
+                </td>
+                <td class="text-left">
+                <%= oi.flower.name %>
+                <td class="text-right">
+                <%= number_to_currency(oi.unit_price, unit:'€') %></td>
+                </td>
+                <td class="text-right">
+                <%= oi.quantity %>
+                </td>
+                <td class="text-right">
+                <%= number_to_currency(oi.subtotal, unit:'€') %>
+                <td align="right">
+                 <%= button_to "Discard from cart", order_item_path(id: oi.id), method: :delete, class: "btn btn-danger" %> 
+                </td>
+              </tr>
+              <% end %>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                 <%= button_to "Discard the whole cart", order_path(id: current_order.id), method: :delete, class: "btn btn-danger" %> 
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <% if current_order.created? %>
+
+            <%= form_for current_order, url: finish_order_path(current_order.id), method: :get do |f| %>
+              <div class="col-md-6" style="padding-bottom: 10px;">
+                <div class="control-group">
+                <%= f.label :address, class: 'control-label' %>
+                  <div class="controls">
+                  <%= f.text_field :address, class: 'form-control' %>
+                  </div>
+                </div>
+                <br>
+                <div class="control-group"> 
+                <%= f.label :delivery_date, class: 'control-label' %>
+                  <div class="controls">
+                    <%= Date.today.year %>
+                    <%= date_select :order, :delivery_date, discard_year: true, class: 'control-label' %>
+                    <br>*The first possible delivery date is <%= Date.tomorrow %>
+                  </div>
+                </div>
+                <div class="controls">
+                  <h3>Total: <%= number_to_currency(current_order.total, unit:'€') %></h3>
+                </div>
+                <div class="controls">
+                <%= f.submit "Confirm", class: "btn btn-success" %>
+                </div>
+            <% end %>
+            
+            <% else %>
+              <div class="controls">
+                <td><%= button_to "Pay", orders_payment_path, method: :get, class: "btn btn-success"%></td>
+              </div>
+            <% end %>
+          
+
+          <% else %>
+            <p>Cart is empty</p>
+          <% end %>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside id="sidebar-right" class="col-md-3"> 
+      <div id="column-right" class="hidden-xs sidebar">
+        <div class="box category highlights">
+          <div class="box-heading">
+            <span>Categories</span>
+          </div>
+          <div class="box-content">
+            <ul class="box-category">
+            <% all_types.each do |type| %>
+              <li><%= link_to type.name, type_flowers_path(type_id: type.id) %></li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      </aside>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="wrap-container">
+    <div class="row">
+      <div id="breadcrumb">
+        <ul class="breadcrumb container">
+          <li><%= link_to  "", root_path, class: "glyphicon glyphicon-home" %></li>
+          <li><span>Flowers</span></li>
+        </ul>
+      </div>
+
+      <section id="sidebar" class="col-md-12">
+        <div id="content">
+          <div class="product-info">
+            <h1>Flowers</h1>
+            <div class="checkout wrapper no-margin">
+
+              <table class="table table-responsive">
+
+                <thead>
+                  <tr>
+                    <td class="text-center">Name</td>
+                    <td class="text-left">Image</td>
+                    <td class="text-left">Description</td>
+                    <td class="text-left">Price</td>
+                    <td class="text-left">Quantity</td>
+                    <td class="text-left">Types</td>
+                    <td class="text-left">Last Edit</td>
+                  </tr>
+                </thead>
+
+                <tbody>
+                
+                <%= paginate @flowers %>
+
+                  <% @flowers.each do |f|%>
+
+                    <tr>
+                      <td class="text-center"><%= f.name %></td>
+                      <td><%= image_tag(f.flower_photo, style: "width:200px; height:auto;") %></td>
+                      <td class="text-center"><%= f.description %></td>
+                      <td class="text-center"><%= number_to_currency(f.price, unit:'€') %></td>
+                      <td class="text-left"><%= f.quantity %></td>
+                      <td class="text-left">
+                      <% f.types.each do |ft| %>
+                        <li><%= ft.name %></li>
+                      <% end %>
+                      </td>
+                      <td class="text-left" width="20%"><%= f.updated_at %></td>
+                      <td class="text-left">
+                      <%= link_to "Edit Flower", edit_type_flower_path(type_id: 1, id: f.id), method: :get, class: "btn btn-default"%>
+                      <p></p>
+                      <%= button_to "Delete Flower", type_flower_path(type_id: 1, id: f.id), method: :delete, class: "btn btn-danger"%>
+                      </td>
+                    </tr>
+
+                  <% end %>
+
+                </tbody>
+
+              </table>
+              <%= link_to 'Add A New Flower', new_type_flower_path(type_id: 1), class: "btn btn-success" %>
+            </div>
+          </div> 
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>

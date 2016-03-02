@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-6">
+  <%= form_for @type do |f|%>
+
+    <div class="required">
+      <div class="control-group">
+      <%= f.label :name, class: 'control-label' %>
+        <div class="controls">
+        <%= f.text_field :name, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="control-group">
+      <%= f.label :dropdown, class: 'control-label' %>
+        <div class="controls">
+        <%= f.collection_select :dropdown, Type::DROPDOWNS, :to_s, :to_s %>
+        </div>
+      </div>
+      <p></p>
+    </div>
+
+    <%= f.submit nil, class: "btn btn-success" %>
+  <% end %>
+
+  </div>
+</div>

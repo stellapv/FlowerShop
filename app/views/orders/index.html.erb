@@ -1,0 +1,92 @@
+
+<div class="container">
+  <div class="wrap-container">
+    <div class="row">
+      <div id="breadcrumb">
+        <ul class="breadcrumb container">
+          <li><%= link_to  "", root_path, class: "glyphicon glyphicon-home" %></li>
+          <li><span>Orders</span></li>
+        </ul>
+      </div>
+    <section id="sidebar-main" class="col-md-12">
+      <div id="content">
+        <div class="product-info">
+            <h1>Orders</h1>
+            <div class="checkout wrapper no-margin">
+             
+            <table class="table table-responsive">
+                <thead>
+                 	<tr>
+                    <td class="text-center">Number</td>
+                  <% if current_user.admin? %>
+                    <td class="text-center">User</td>
+                  <% end %>
+                    <td class="text-left">Order Date</td>
+                    <td class="text-left">Items</td>
+                    <td class="text-left">Delivery Address</td>
+                    <td class="text-left">Deivery Date</td>
+                    <td class="text-left">State</td>
+                    <td class="text-right">Price</td>
+                  </tr>
+                </thead>
+                <tbody>
+               
+                <% @orders.each do |o|%>
+                  <tr>
+                  <% if (o.created? || o.confirmed?) && !current_user.admin? %>
+                    <td class="text-center">
+                      <%=  link_to o.id, carts_show_path(o.id) %>
+                    </td>
+                  <% else %>
+                    <td class="text-center">
+                      <%= o.id %>
+                    </td>
+                  <% end %>
+                  <% if current_user.admin? %>  
+                    <td class="text-center">
+                    <%=  o.user.email %>
+                    </td>
+                  <% end %>
+                    <td class="text-left">
+                    <%=  o.created_at.to_date %>
+                    </td>
+                    <td class="text-left">
+                    <% o.order_items.each do |oi| %>
+                      <li><%= oi.flower.name + " - " + oi.quantity.to_s + " piece(s)" %></li>
+                    <% end %>
+                    </td>
+                    <td><%= o.address %></td>
+                    <td>
+                    <% if !o.created? %>
+                      <%= o.delivery_date.to_date %>
+                    <% end %>
+                    </td>
+                    <td class="text-left"><%= o.state %></td>
+                    <td class="text-right"><%= number_to_currency(o.total, unit:'€') %></td>
+
+                  <% if current_user.admin? %>
+                    <td class="text-left">
+                  	<% if o.payed?  %> 
+                  		<%= link_to 'Mark as completed', complete_order_path(o), class: "btn btn-success" %>
+                  	<% end %>
+                    <p></p>
+                    <% if o.confirmed? or o.payed? %>
+                      <%= link_to 'Cancel order', cancel_order_path(o), class: "btn btn-danger" %>
+                    <% end %>
+                    </td>
+                  <% end %>
+                  </tr>
+                <% end %>
+
+                </tbody>
+            </table>
+            <% if !current_user.admin? %>
+              <%= button_to 'New Order', type_flowers_path(type_id: 1) , method: :get, class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+</div>

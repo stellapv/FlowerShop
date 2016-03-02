@@ -1,0 +1,136 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.navbar {
+    background-color: transparent;
+}
+/* bara */
+.navbar-inverse {
+    background-color: transparent;
+    font-family: -webkit-body;
+    border-bottom: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0px;
+    margin-top: 4%;
+}
+
+/*zaglavieto */
+
+.navbar-header {
+    margin-top: -2%;
+}
+
+.navbar-brand {
+    color: black;
+    padding: 0px;
+    height: inherit;
+    margin-top: -13%;
+}  /*dobavi na <a>     hvr-hang classes */
+
+/*logina*/
+.navbar-right {
+    padding: 0PX;
+    margin-top: -5%;
+}
+
+.navbar-right.user-bar {
+    margin-top: -8%;
+}
+ /*glyphicon-user i login add hvr-hang class*/
+
+.container-fluid {
+    background: transparent;
+}
+
+.navbar-collapse {
+    background: transparent;
+}
+
+.navbar-nav {
+    position: absolute;
+    right: 3%;
+    padding: 0px;
+}
+
+/*searcha navbar-left*/
+
+.navbar-left  {
+    position: absolute;
+    right: 40%;
+    margin-top: 11%;
+    padding: 0px;
+    width: 123%;
+    left: -80%;
+    margin-left: 80%;
+}
+
+.glyphicon > a {
+  padding: 0px;
+}
+
+.f-login {
+    
+    margin: auto;
+    position: inherit;
+    width: 50%;
+}
+
+.f-login-text {
+   text-align: center;
+}
+
+.dropdown-toggle.dropdown-anchor {
+    padding: 0px;
+    margin: 0px;
+    background-color: transparent;
+    text-align: center;
+    padding-right: 40%;
+    padding-top: 11%;
+
+} 
+
+
+/*autoopen dropdowns*/
+.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.hvr-icon-pulse-grow:before {
+    padding-right: 89%;
+}
+/*home add class hvr-icon-pulse-grow*/
+
+.sub-menu {
+    background-color: bisque;
+    color: black;
+}
+
+.hvr-icon-hang:before {
+    position: absolute;
+    right: 0px;
+    padding: 0xp;
+    margin: 0px;
+}
+
+.dropdown {
+    width: 33%;
+    text-align: center;
+        PADDING-RIGHT: 5%;
+}
+
+.dropdown-menu {
+    background-color: bisque;
+}
+
+a.glyphicon.glyphicon-log-out.hvr-bob {
+    padding-top: 39%;
+}

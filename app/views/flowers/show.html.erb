@@ -1,0 +1,144 @@
+<script>
+	$(document).ready(function(){
+		$('#ex1').zoom();
+	});
+</script>
+
+<div class="container">
+	<div class="wrap-container">
+	  <div class="row">
+	  	<div id="breadcrumb">
+				<ul class="breadcrumb container">
+					<li><%= link_to  "", root_path, class: "glyphicon glyphicon-home" %></li>
+					<li><span><%= link_to current_type.name, type_flowers_path %></span></li>
+					<li><span><%= @flower.name %></span></li>
+				</ul>
+			</div>
+			<section id="sidebar-main" class="col-md-9">
+		   	<div id="content">
+		      <div class="product-info">
+		    		<div class="row">
+	        		<div class="col-lg-7 col-sm-6 col-xs-12 image-container">
+	       				<span class='zoom' id='ex1'>
+								<%= image_tag(@flower.flower_photo, width:'300', height: '150') %>
+								</span>	
+	      			</div>
+
+							<div class="col-md-5 col-lg-5 col-sm-6 col-xs-12"><p></p>
+
+				        <h1 style="color: #B399CD"><%= @flower.name %></h1>
+				        <ul class="list-unstyled description">
+				          <li><span>Category: </span><%= current_type.name %></li>
+									<li><span class="availability">Availability: </span><%= availability? ? "In stock" : "Sold out" %></li>
+				        </ul>
+
+						    <div id="product">
+						     	<div class="product-extra">
+							     	<% if availability? %>
+								      <%= form_for OrderItem.new do |f| %>
+								        <h4 class="text-right">Unit Price: <span style="color: green">
+								          <%= number_to_currency(@flower.price, unit:'€') %></span>
+								        </h4>
+								        <div class="input-group">
+								          <%= f.number_field :quantity, value: 1, class: "form-control", min: 1, max: @flower.quantity %>
+								          	<div class="input-group-btn">
+								            <%= f.hidden_field :flower_id, value: @flower.id %>
+								            <%= f.submit "Add to Cart", class: "btn btn-success" %>
+								          	</div>
+								        </div>
+							        <% end %>
+							      <% end %>
+						    	</div>
+								</div>
+
+							</div>
+					</div>
+		    </div>
+
+				<div class="tabs-group">
+					<div id="tabs" class="htabs clearfix">
+				    <ul class="nav clearfix">
+				      <li class="active"><a href="#tab-description" data-toggle="tab">Description</a></li>
+							<li><a href="#tab-review" data-toggle="tab">Reviews (<%= @flower.comments.count %>)</a></li>
+						</ul>           
+					</div>
+
+					<div class="tab-content">
+				    <div class="tab-pane active" id="tab-description">
+				    	<div><%= @flower.description %></div>
+				    </div>
+				    <div class="tab-pane" id="tab-review">
+				      <div id="review">
+
+							<% if @flower.comments.empty? %>
+					      <p>There are no reviews for this product.</p>
+					    <% else %>
+					    	<%= @flower.comments.count.to_s + " comment(s) about this item" %>
+								<p></p>
+							  <div class="titleBox">
+							    <label>Comment Box</label>
+							  </div>
+								<div class="actionBox">
+					    		<ul class="commentList">
+									<% @flower.comments.each do |c| %>
+						        <li>
+						          <div class="commentText">
+						            <p class=""><%= c.body %></p>
+						            <span class="date sub-text">
+						            <%= "Created by " + c.user.firstname + " on " + c.created_at.to_date.to_s %>
+						            </span>
+						          </div>
+						      	</li>
+					      	<% end %>
+						      </ul>
+						    </div>
+							<% end %>
+
+							<% if current_user %>
+						    <div id="review-form" class="panel review-form-width">
+						      <div class="panel-body">
+						      <%= form_for @comment do |f|%>
+										<div class="control-group">
+							      <%= f.label :Write_a_Comment, class: 'control-label' %>
+							        <div class="controls">
+							        <%= f.text_field :body, class: 'form-control' %>
+							        </div>
+							      </div>
+							      <div class="control-group">
+							      <%= f.hidden_field :flower_id, value: @flower.id %>
+							      <%= f.hidden_field :user_id, value: current_user.id %>
+							      </div>
+							      <p></p>
+										<%= f.submit nil, class: "btn btn-success" %>
+									<% end %>
+						    	</div>
+						    </div>
+						   <% end %>
+
+					  	</div>
+
+						</div>
+					</div>
+				</div>	
+			</section>
+
+			<aside id="sidebar-right" class="col-md-3">	
+				<div id="column-right" class="hidden-xs sidebar">
+					<div class="box category highlights">
+						<div class="box-heading">
+							<span>Categories</span>
+						</div>
+						<div class="box-content">
+							<ul class="box-category">
+							<% all_types.each do |type| %>
+								<li><%= link_to type.name, type_flowers_path(type_id: type.id) %></li>
+							<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</aside>
+
+		</div>
+	</div>
+</div>
